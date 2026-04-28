@@ -7,7 +7,7 @@ const app = express();
 
 // 1. POPRAWKA CORS: Podaj DOKŁADNY adres swojej aplikacji klienckiej (z Vercel/Render)
 app.use(cors({
-  origin: 'https://pokedexab.vercel.app/' // <-- ZMIEŃ NA SWÓJ PRAWDZIWY LINK FRONTENDU!
+  origin: 'https://pokedexab.vercel.app' // <-- ZMIEŃ NA SWÓJ PRAWDZIWY LINK FRONTENDU!
 }));
 app.use(express.json());
 
