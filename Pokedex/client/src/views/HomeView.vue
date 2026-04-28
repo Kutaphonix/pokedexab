@@ -49,13 +49,18 @@ const search = ref('');
 onMounted(async () => {
   try {
     const res = await axios.get('https://pokedexab.onrender.com/api/pokemons');
-    pokemons.value = res.data;
-  } catch (e) { console.error(e); }
+    // Upewniamy się, że to co przyszło to faktycznie tablica z pokemonami
+    if (Array.isArray(res.data)) {
+      pokemons.value = res.data;
+    } else {
+      console.error("Błąd: Serwer nie zwrócił tablicy. Zwrócił:", res.data);
+      pokemons.value = []; // Ustawiamy pustą tablicę, żeby uchronić Vue przed padnięciem
+    }
+  } catch (e) { 
+    console.error("Błąd połączenia z backendem:", e); 
+    pokemons.value = [];
+  }
 });
-
-const filtered = computed(() => 
-  pokemons.value.filter(p => p.name.toLowerCase().includes(search.value?.toLowerCase() || ''))
-);
 
 const typeConfig = {
   grass: { color: 'green-darken-1', icon: 'mdi-leaf' },
