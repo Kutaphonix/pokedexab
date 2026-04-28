@@ -61,7 +61,7 @@ const pkm = ref({}); // Pusty obiekt na start
 // Pobieramy dane istniejącego pokemona
 onMounted(async () => {
   try {
-    const res = await axios.get(`http://localhost:3000/api/pokemons/${route.params.id}`);
+    const res = await axios.get(`https://pokedexab.onrender.com${route.params.id}`);
     pkm.value = res.data;
   } catch (e) {
     console.error(e);
@@ -72,7 +72,7 @@ onMounted(async () => {
 const save = async () => {
   try {
     // Uwaga: używamy axos.put (zgodnie z nowym endpointem w server.js)
-    await axios.put(`http://localhost:3000/api/pokemons/${pkm.value.id}`, pkm.value);
+    await axios.put(`https://pokedexab.onrender.com${pkm.value.id}`, pkm.value);
     router.push(`/pokemon/${pkm.value.id}`); // Wracamy do detali po edycji
   } catch (e) {
     console.error(e);
