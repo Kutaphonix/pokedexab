@@ -46,6 +46,14 @@ import axios from 'axios';
 const pokemons = ref([]);
 const search = ref('');
 
+// Dodana funkcja filtrująca pokemony
+const filtered = computed(() => {
+  if (!search.value) return pokemons.value;
+  return pokemons.value.filter(p => 
+    p.name.toLowerCase().includes(search.value.toLowerCase())
+  );
+});
+
 onMounted(async () => {
   try {
     const res = await axios.get('https://pokedexab.onrender.com/api/pokemons');
