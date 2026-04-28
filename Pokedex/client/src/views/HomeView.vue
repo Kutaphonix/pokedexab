@@ -19,7 +19,7 @@
     <v-row v-if="pokemons.length">
       <v-col v-for="p in filtered" :key="p.id" cols="12" sm="6" md="4" lg="3">
 <v-card @click="$router.push('/pokemon/' + p.id)" hover class="text-center pa-3 rounded-lg">
-  <v-img :src="p.imageUrl || 'https://static.planetminecraft.com/files/resource_media/screenshot/1129/pokeball_197770.jpg'" height="150" contain></v-img>
+  <v-img :src="p.imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png?_=20161126061739'" height="150" contain></v-img>
   
   <v-card-title class="text-capitalize d-flex align-center justify-center">
     {{ p.name }}
