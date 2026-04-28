@@ -36,7 +36,7 @@ app.post('/api/pokemons', async (req, res) => {
   const { name, imageUrl, description, type, hp, attack, defense } = req.body;
   try {
     const [result] = await pool.query(
-      'INSERT INTO Pokemon (name, imageUrl, description, type, hp, attack, defense) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO pokemon (name, imageUrl, description, type, hp, attack, defense) VALUES (?, ?, ?, ?, ?, ?, ?)',
       [name, imageUrl, description, type, hp || 50, attack || 50, defense || 50]
     );
     res.json({ id: result.insertId, message: "Pokemon dodany pomyślnie!" });
@@ -50,7 +50,7 @@ app.put('/api/pokemons/:id', async (req, res) => {
   const { name, imageUrl, description, type, hp, attack, defense } = req.body;
   try {
     await pool.query(
-      'UPDATE Pokemon SET name=?, imageUrl=?, description=?, type=?, hp=?, attack=?, defense=? WHERE id=?',
+      'UPDATE pokemon SET name=?, imageUrl=?, description=?, type=?, hp=?, attack=?, defense=? WHERE id=?',
       [name, imageUrl, description, type, hp, attack, defense, req.params.id]
     );
     res.json({ message: "Pokemon zaktualizowany!" });
