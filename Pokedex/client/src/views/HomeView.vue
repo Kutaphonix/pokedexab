@@ -40,7 +40,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import axios from 'axios';
 
 const pokemons = ref([]);
@@ -52,6 +52,28 @@ const filtered = computed(() => {
   return pokemons.value.filter(p => 
     p.name.toLowerCase().includes(search.value.toLowerCase())
   );
+});
+
+let pollingInterval;
+
+const fetchPokemons = async () => {
+  try {
+    const res = await axios.get('https://pokedexab.onrender.com/api/pokemons');
+    if (Array.isArray(res.data)) {
+      pokemons.value = res.data;
+    }
+  } catch (e) { 
+    console.error("Błąd połączenia z backendem:", e); 
+  }
+};
+
+onMounted(() => {
+  fetchPokemons(); // Pierwsze pobranie
+  pollingInterval = setInterval(fetchPokemons, 5000); // Odświeżanie w tle co 5 sekund
+});
+
+onUnmounted(() => {
+  clearInterval(pollingInterval); // Ważne: usuwamy interwał, gdy opuszczasz stronę główną!
 });
 
 onMounted(async () => {
