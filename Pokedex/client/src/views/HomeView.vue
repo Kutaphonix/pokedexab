@@ -56,14 +56,19 @@ const filtered = computed(() => {
 
 let pollingInterval;
 
+// Ujednolicona i bezpieczna funkcja do pobierania pokemonów
 const fetchPokemons = async () => {
   try {
     const res = await axios.get('https://pokedexab.onrender.com/api/pokemons');
     if (Array.isArray(res.data)) {
       pokemons.value = res.data;
+    } else {
+      console.error("Błąd: Serwer nie zwrócił tablicy. Zwrócił:", res.data);
+      pokemons.value = []; // Ustawiamy pustą tablicę w razie dziwnej odpowiedzi serwera
     }
   } catch (e) { 
     console.error("Błąd połączenia z backendem:", e); 
+    pokemons.value = [];
   }
 };
 
@@ -73,23 +78,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  clearInterval(pollingInterval); // Ważne: usuwamy interwał, gdy opuszczasz stronę główną!
-});
-
-onMounted(async () => {
-  try {
-    const res = await axios.get('https://pokedexab.onrender.com/api/pokemons');
-    // Upewniamy się, że to co przyszło to faktycznie tablica z pokemonami
-    if (Array.isArray(res.data)) {
-      pokemons.value = res.data;
-    } else {
-      console.error("Błąd: Serwer nie zwrócił tablicy. Zwrócił:", res.data);
-      pokemons.value = []; // Ustawiamy pustą tablicę, żeby uchronić Vue przed padnięciem
-    }
-  } catch (e) { 
-    console.error("Błąd połączenia z backendem:", e); 
-    pokemons.value = [];
-  }
+  clearInterval(pollingInterval); // Usunięcie interwału przy wyjściu z tej strony
 });
 
 const typeConfig = {
