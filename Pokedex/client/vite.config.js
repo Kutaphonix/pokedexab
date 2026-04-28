@@ -3,7 +3,6 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  // Dla Rendera "/" to poprawna ścieżka główna
   base: '/', 
   
   plugins: [
@@ -12,15 +11,15 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      // Pozwala na używanie skrótu "@" zamiast "./src"
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
 
   build: {
-    // To wymusza czyszczenie folderu dist przed każdym budowaniem
+    // TĄ LINIJKĄ WYŁĄCZAMY ZGNIATANIE KODU, KTÓRE PSUJE VUETIFY:
+    minify: false, 
+    
     emptyOutDir: true,
-    // To zapewnia, że pliki będą miały przewidywalną strukturę
     assetsDir: 'assets',
   }
 })
