@@ -1,18 +1,15 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import { createVuetify } from 'vuetify'
 
-// Import stylów Vuetify i ikon
+// Tylko podstawowe importy Vuetify (CSS i główna funkcja)
 import 'vuetify/styles'
-import '@mdi/font/css/materialdesignicons.css'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
+import { createVuetify } from 'vuetify'
+import '@mdi/font/css/materialdesignicons.css' // Jeśli używasz ikon
 
-const vuetify = createVuetify({
-  components,
-  directives,
-})
+// Tworzymy pustą instancję Vuetify. 
+// Komponenty zaimportują się SAME dzięki vite.config.js!
+const vuetify = createVuetify()
 
 const app = createApp(App)
 
