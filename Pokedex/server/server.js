@@ -4,14 +4,24 @@ const mysql = require('mysql2/promise');
 require('dotenv').config();
 
 const app = express();
+
+// 1. POPRAWKA CORS: Podaj DOKŁADNY adres swojej aplikacji klienckiej (z Vercel/Render)
 app.use(cors({
-  origin: 'https://twoja-strona-clienta.onrender.com' 
+  origin: 'https://pokedexab-client.onrender.com' // <-- ZMIEŃ NA SWÓJ PRAWDZIWY LINK FRONTENDU!
 }));
 app.use(express.json());
 
-const pool = mysql.createPool(process.env.DATABASE_URL);
+// 2. POPRAWKA SSL: Aiven wymaga tego do bezpiecznego połączenia
+const pool = mysql.createPool({
+  uri: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  },
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
-// Pobieranie wszystkich - upewnij się, że tabela w Workbench nazywa się dokładnie 'Pokemon'
 app.get('/api/pokemons', async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM Pokemon');
@@ -22,9 +32,6 @@ app.get('/api/pokemons', async (req, res) => {
   }
 });
 
-
-
-// DODAWANIE - teraz z obsługą nowych kolumn
 app.post('/api/pokemons', async (req, res) => {
   const { name, imageUrl, description, type, hp, attack, defense } = req.body;
   try {
@@ -53,7 +60,6 @@ app.put('/api/pokemons/:id', async (req, res) => {
   }
 });
 
-// USUWANIE Pokemona
 app.delete('/api/pokemons/:id', async (req, res) => {
   try {
     await pool.query('DELETE FROM Pokemon WHERE id = ?', [req.params.id]);
@@ -64,22 +70,17 @@ app.delete('/api/pokemons/:id', async (req, res) => {
   }
 });
 
-// SĄSIEDZI (Do przycisków Poprzedni/Następny)
 app.get('/api/pokemons/:id/neighbors', async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    // Szukamy najbliższego mniejszego ID (Poprzedni)
     const [[prev]] = await pool.query('SELECT id, name FROM Pokemon WHERE id < ? ORDER BY id DESC LIMIT 1', [id]);
-    // Szukamy najbliższego większego ID (Następny)
     const [[next]] = await pool.query('SELECT id, name FROM Pokemon WHERE id > ? ORDER BY id ASC LIMIT 1', [id]);
-    
     res.json({ prev: prev || null, next: next || null });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Pobieranie jednego po ID
 app.get('/api/pokemons/:id', async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM Pokemon WHERE id = ?', [req.params.id]);
@@ -90,4 +91,6 @@ app.get('/api/pokemons/:id', async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Serwer API działa na porcie 3000"));
+// 3. POPRAWKA PORTU DLA RENDERA
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '0.0.0.0', () => console.log(`Serwer API działa na porcie ${PORT}`));
