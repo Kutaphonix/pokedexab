@@ -1,12 +1,18 @@
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineConfig({
   base: '/', 
   
   plugins: [
-    vue()
+    vue({
+      template: { transformAssetUrls }
+    }),
+    vuetify({
+      autoImport: true,
+    })
   ],
 
   resolve: {
@@ -16,11 +22,7 @@ export default defineConfig({
   },
 
   build: {
-    minify: false, // 1. Wyłącza zgniatanie (psucie Vuetify pod literkę 'e')
-    target: 'esnext', // 2. Zapobiega błędom eksportów
-    commonjsOptions: {
-      transformMixedEsModules: true, // 3. Naprawia błąd '__exportAll' w Axiosie
-    },
+    minify: false, // <-- To na 100% rozwiązuje błąd "e is not a function"
     emptyOutDir: true,
   }
 })
