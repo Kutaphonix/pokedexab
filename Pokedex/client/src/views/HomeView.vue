@@ -48,7 +48,7 @@ const search = ref('');
 
 onMounted(async () => {
   try {
-    const res = await axios.get('http://localhost:3000/api/pokemons');
+    const res = await axios.get('https://pokedexab.onrender.com');
     pokemons.value = res.data;
   } catch (e) { console.error(e); }
 });
