@@ -61,7 +61,7 @@ const pkm = ref({}); // Pusty obiekt na start
 // Pobieramy dane istniejącego pokemona
 onMounted(async () => {
   try {
-    const res = await axios.get(`https://https://pokedexab.onrender.com/api/pokemons${route.params.id}`);
+    const res = await axios.get(`https://pokedexab.onrender.com/api/pokemons/${route.params.id}`);
     pkm.value = res.data;
   } catch (e) {
     console.error(e);
@@ -71,9 +71,8 @@ onMounted(async () => {
 
 const save = async () => {
   try {
-    // Uwaga: używamy axos.put (zgodnie z nowym endpointem w server.js)
-    await axios.put(`https://https://pokedexab.onrender.com/api/pokemons${pkm.value.id}`, pkm.value);
-    router.push(`/pokemon/${pkm.value.id}`); // Wracamy do detali po edycji
+    await axios.put(`https://pokedexab.onrender.com/api/pokemons/${pkm.value.id}`, pkm.value);
+    router.push(`/pokemon/${pkm.value.id}`);
   } catch (e) {
     console.error(e);
     alert("Wystąpił błąd podczas aktualizacji!");
