@@ -1,18 +1,12 @@
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineConfig({
   base: '/', 
   
   plugins: [
-    vue({
-      template: { transformAssetUrls }
-    }),
-    vuetify({
-      autoImport: true,
-    }),
+    vue()
   ],
 
   resolve: {
@@ -22,14 +16,11 @@ export default defineConfig({
   },
 
   build: {
-    // 1. Zmusza serwer do użycia nowoczesnego JS'a
-    target: 'esnext', 
-    
-    // 2. MAGIA: Tłumaczy problematyczne moduły (takie jak Axios) bez wywalania błędu __exportAll
+    minify: false, // 1. Wyłącza zgniatanie (psucie Vuetify pod literkę 'e')
+    target: 'esnext', // 2. Zapobiega błędom eksportów
     commonjsOptions: {
-      transformMixedEsModules: true, 
+      transformMixedEsModules: true, // 3. Naprawia błąd '__exportAll' w Axiosie
     },
-    
     emptyOutDir: true,
   }
 })
