@@ -1,19 +1,14 @@
 import router from '../router';
 import i18n from './i18n';
-import {createPinia} from 'pinia';
-/**
- * plugins/index.ts
- *
- * Automatically included in `./src/main.ts`
- */
-
-// Types
-import type { App } from 'vue'
+import { createPinia } from 'pinia';
 
 // Plugins
 import vuetify from './vuetify'
 
-export function registerPlugins (app: App) {
+// Usunęliśmy "import type { App } from 'vue'" - w JS tego nie potrzebujemy
+
+export function registerPlugins (app) { 
+ // Usunęliśmy ": App" - w JS nie definiujemy typów po dwukropku
  app.use(vuetify)
  app.use(createPinia());
  app.use(i18n);
