@@ -1,24 +1,21 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import { createPinia } from 'pinia' // Dodaj to
+import { createPinia } from 'pinia'
 import { createVuetify } from 'vuetify'
 
-// Import stylów
+// Import stylów - zostawiamy tylko to
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
 
-const vuetify = createVuetify({
-  components,
-  directives,
-})
+// USUŃ: import * as components i directives!
+// Inicjalizujemy puste Vuetify, bo vite.config.js zajmie się resztą
+const vuetify = createVuetify()
 
 const app = createApp(App)
-const pinia = createPinia() // Stwórz instancję
+const pinia = createPinia()
 
-app.use(pinia)   // Zarejestruj Pinię przed routerem
+app.use(pinia)
 app.use(router)
 app.use(vuetify)
 
