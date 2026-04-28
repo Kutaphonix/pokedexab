@@ -145,7 +145,7 @@ const integerRules = [
 const save = async () => {
   try {
     // Wysyłamy dane do serwera
-    await axios.post('http://localhost:3000/api/pokemons', pkm.value);
+    await axios.post('https://pokedexab.onrender.com', pkm.value);
     router.push('/'); 
   } catch (e) {
     console.error(e);
