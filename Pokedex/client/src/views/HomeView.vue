@@ -1,5 +1,5 @@
 <template>
-<v-container>
+  <v-container>
     <v-row>
       <v-col cols="12" sm="8" md="5" lg="4">
         <v-text-field
@@ -18,21 +18,34 @@
 
     <v-row v-if="pokemons.length">
       <v-col v-for="p in filtered" :key="p.id" cols="12" sm="6" md="4" lg="3">
-<v-card @click="$router.push('/pokemon/' + p.id)" hover class="text-center pa-3 rounded-lg">
-  <v-img :src="p.imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png?_=20161126061739'" height="150" contain></v-img>
-  
-  <v-card-title class="text-capitalize d-flex align-center justify-center">
-    {{ p.name }}
-    <v-icon 
-      :icon="getTypeIcon(p.type)" 
-      :color="getTypeColor(p.type)" 
-      size="x-small" 
-      class="ml-2"
-    ></v-icon>
-  </v-card-title>
+        <v-card @click="$router.push('/pokemon/' + p.id)" hover class="text-center pa-3 rounded-lg">
+          
+          <v-img 
+            :src="p.imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png?_=20161126061739'" 
+            height="150" 
+            contain
+          >
+            <template v-slot:error>
+              <v-img 
+                src="https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png?_=20161126061739" 
+                height="150" 
+                contain
+              ></v-img>
+            </template>
+          </v-img>
+          
+          <v-card-title class="text-capitalize d-flex align-center justify-center">
+            {{ p.name }}
+            <v-icon 
+              :icon="getTypeIcon(p.type)" 
+              :color="getTypeColor(p.type)" 
+              size="x-small" 
+              class="ml-2"
+            ></v-icon>
+          </v-card-title>
 
-  <v-card-subtitle class="text-overline">{{ p.type || 'unknown' }}</v-card-subtitle>
-</v-card>
+          <v-card-subtitle class="text-overline">{{ p.type || 'unknown' }}</v-card-subtitle>
+        </v-card>
       </v-col>
     </v-row>
     <v-row v-else justify="center"><v-progress-circular indeterminate></v-progress-circular></v-row>
