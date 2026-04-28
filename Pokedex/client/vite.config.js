@@ -4,19 +4,30 @@ import vue from '@vitejs/plugin-vue'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineConfig({
-  // Dla Rendera musi to być sam ukośnik (nie zmieniamy tego na nazwę repozytorium!)
+  // Dla Rendera "/" to poprawna ścieżka główna
   base: '/', 
+  
   plugins: [
     vue({
       template: { transformAssetUrls }
     }),
+    // Vuetify z auto-importem jest kluczowe dla poprawnych stylów
     vuetify({
-      autoImport: true, // To naprawia błąd "e is not a function"!
+      autoImport: true,
     }),
   ],
+
   resolve: {
     alias: {
+      // Pozwala na używanie skrótu "@" zamiast "./src"
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+
+  build: {
+    // To wymusza czyszczenie folderu dist przed każdym budowaniem
+    emptyOutDir: true,
+    // To zapewnia, że pliki będą miały przewidywalną strukturę
+    assetsDir: 'assets',
   }
 })
