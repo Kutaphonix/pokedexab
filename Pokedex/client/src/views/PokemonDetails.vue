@@ -107,11 +107,11 @@ const getTypeIcon = (type) => typeConfig[type?.toLowerCase()]?.icon || 'mdi-help
 const fetchData = async (id) => {
   pokemon.value = null; // Animacja ładowania
   try {
-    const res = await axios.get(`https://pokedexab1-pokedexab.c.aivencloud.com/api/pokemons${id}`);
+    const res = await axios.get(`https://https://pokedexab.onrender.com/api/pokemons${id}`);
     pokemon.value = res.data;
     
     // Pobieramy sąsiadów
-    const neighRes = await axios.get(`https://pokedexab1-pokedexab.c.aivencloud.com/api/pokemons${id}/neighbors`);
+    const neighRes = await axios.get(`https://https://pokedexab.onrender.com/api/pokemons${id}/neighbors`);
     neighbors.value = neighRes.data;
   } catch (error) {
     console.error("Błąd pobierania:", error);
@@ -122,7 +122,7 @@ const fetchData = async (id) => {
 const deletePokemon = async () => {
   if(confirm("Czy na pewno chcesz usunąć tego Pokemona?")) {
     try {
-      await axios.delete(`https://pokedexab1-pokedexab.c.aivencloud.com/api/pokemons${pokemon.value.id}`);
+      await axios.delete(`https://https://pokedexab.onrender.com/api/pokemons${pokemon.value.id}`);
       router.push('/');
     } catch (error) {
       alert("Błąd podczas usuwania");
