@@ -24,7 +24,7 @@ const pool = mysql.createPool({
 
 app.get('/api/pokemons', async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM Pokemon');
+    const [rows] = await pool.query('SELECT * FROM pokemon');
     res.json(rows);
   } catch (error) {
     console.error("Błąd GET /api/pokemons:", error);
@@ -62,7 +62,7 @@ app.put('/api/pokemons/:id', async (req, res) => {
 
 app.delete('/api/pokemons/:id', async (req, res) => {
   try {
-    await pool.query('DELETE FROM Pokemon WHERE id = ?', [req.params.id]);
+    await pool.query('DELETE  pokemon WHERE id = ?', [req.params.id]);
     res.json({ message: "Pokemon usunięty!" });
   } catch (error) {
     console.error("Błąd usuwania:", error);
@@ -73,8 +73,8 @@ app.delete('/api/pokemons/:id', async (req, res) => {
 app.get('/api/pokemons/:id/neighbors', async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const [[prev]] = await pool.query('SELECT id, name FROM Pokemon WHERE id < ? ORDER BY id DESC LIMIT 1', [id]);
-    const [[next]] = await pool.query('SELECT id, name FROM Pokemon WHERE id > ? ORDER BY id ASC LIMIT 1', [id]);
+    const [[prev]] = await pool.query('SELECT id, name  pokemon WHERE id < ? ORDER BY id DESC LIMIT 1', [id]);
+    const [[next]] = await pool.query('SELECT id, name  pokemon WHERE id > ? ORDER BY id ASC LIMIT 1', [id]);
     res.json({ prev: prev || null, next: next || null });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -83,7 +83,7 @@ app.get('/api/pokemons/:id/neighbors', async (req, res) => {
 
 app.get('/api/pokemons/:id', async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM Pokemon WHERE id = ?', [req.params.id]);
+    const [rows] = await pool.query('SELECT *  pokemon WHERE id = ?', [req.params.id]);
     if (rows.length > 0) res.json(rows[0]);
     else res.status(404).json({ error: "Nie ma takiego Pokemona" });
   } catch (error) {
