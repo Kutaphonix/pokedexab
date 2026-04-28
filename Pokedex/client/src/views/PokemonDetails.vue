@@ -122,7 +122,7 @@ const fetchData = async (id) => {
 const deletePokemon = async () => {
   if(confirm("Czy na pewno chcesz usunąć tego Pokemona?")) {
     try {
-      await axios.delete(`http://localhost:3000/api/pokemons/${pokemon.value.id}`);
+      await axios.delete(`https://pokedexab.onrender.com${pokemon.value.id}`);
       router.push('/');
     } catch (error) {
       alert("Błąd podczas usuwania");
