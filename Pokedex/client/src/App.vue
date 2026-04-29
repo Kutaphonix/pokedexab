@@ -6,13 +6,19 @@
       height="60"
       style="background: rgba(18, 18, 18, 0.8) !important; backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;"
     >
-      <v-avatar size="40" class="mr-3">
-        <v-img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"></v-img>
-      </v-avatar>
-      
-      <v-app-bar-title class="font-weight-black text-h5 tracking-tight text-white">
-        MOJE <span class="text-primary">POKEWIKI</span>
-      </v-app-bar-title>
+      <div 
+        class="d-flex align-center" 
+        style="cursor: pointer" 
+        @click="$router.push('/')"
+      >
+        <v-avatar size="40" class="mr-3">
+          <v-img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"></v-img>
+        </v-avatar>
+        
+        <v-app-bar-title class="font-weight-black text-h5 tracking-tight text-white">
+          MOJE <span class="text-primary">POKEWIKI</span>
+        </v-app-bar-title>
+      </div>
 
       <v-spacer></v-spacer>
 
@@ -47,22 +53,14 @@
     <v-main style="background-color: #121212;">
       <router-view />
     </v-main>
+
+    <v-footer class="bg-grey-darken-4 text-center d-flex flex-column py-6">
+      <div class="text-grey-lighten-1">
+        {{ new Date().getFullYear() }} — <strong>Moje PokeWiki</strong>
+      </div>
+      <div class="text-caption text-grey-darken-1 mt-2">
+        Wszystkie prawa zastrzeżone • Projekt zbudowany w oparciu o Vue 3 i Vuetify
+      </div>
+    </v-footer>
   </v-app>
 </template>
-
-<script setup>
-// Tu na razie nie potrzebujemy dodatkowej logiki
-</script>
-
-<style>
-/* Dodatkowy sznyt: płynne przejścia przycisków i wyłączenie Caps Locka */
-.v-btn {
-  transition: all 0.3s ease !important;
-  text-transform: none !important; 
-  letter-spacing: 0.5px !important;
-}
-
-.v-btn:hover {
-  transform: translateY(-2px);
-}
-</style>
