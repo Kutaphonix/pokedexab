@@ -53,9 +53,9 @@
       <v-col v-for="p in filtered" :key="p.id" cols="12" sm="6" md="4" lg="3">
         <v-card @click="$router.push('/pokemon/' + p.id)" hover class="text-center pa-3 rounded-lg">
           
-          <v-img :src="p.imageUrl || 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png'" height="150" contain>
+          <v-img :src="p.imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png?_=20161126061739'" height="150" contain>
             <template v-slot:error>
-              <v-img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" height="150" contain></v-img>
+              <v-img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png?_=20161126061739" height="150" contain></v-img>
             </template>
           </v-img>
           
