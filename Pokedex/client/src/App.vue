@@ -59,7 +59,7 @@
         {{ new Date().getFullYear() }} — <strong>Moje PokeWiki</strong>
       </div>
       <div class="text-caption text-grey-darken-1 mt-2">
-        Wszystkie prawa zastrzeżone • Projekt zbudowany w oparciu o Vue 3 i Vuetify
+        Wszystkie prawa zastrzeżone • Projekt zbudowany w oparciu o Vue 3 i Vuetify • Kamil Bilkiewicz • Józef Sawczuk • Akademia Bialska
       </div>
     </v-footer>
   </v-app>
